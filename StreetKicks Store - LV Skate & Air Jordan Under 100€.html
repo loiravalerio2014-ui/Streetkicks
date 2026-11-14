@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREETKICKS | Limited Edition Sneakers & Streetwear Italia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome per Icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0A0A0A',
+                            dark: '#141414',
+                            gray: '#F4F4F5',
+                            accent: '#E11D48', // Rosso streetwear vibrante
+                            emerald: '#10B981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Stili personalizzati per scrollbar e animazioni fluide */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #09090b;
+        }
+
+        /* Nascondi scrollbar orizzontale sui filtri su mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Effetto marquee barra annunci */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 28s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Transizioni immagini card */
+        .product-img-zoom {
+            transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .product-img-zoom {
+            transform: scale(1.07);
+        }
+    </style>
+</head>
+<body class="bg-white text-brand-black antialiased selection:bg-brand-black selection:text-white flex flex-col min-h-screen">
+
+    <!-- ==================== 1. TOP ANNOUNCEMENT BAR ==================== -->
+    <div class="bg-brand-black text-white text-[11px] sm:text-xs font-semibold tracking-wider uppercase py-2.5 overflow-hidden border-b border-zinc-800">
+        <div class="animate-marquee whitespace-nowrap">
+            <span class="mx-6">🔥 TUTTI I MODELLI A MENO DI 100€ • SPEDIZIONE GRATUITA SOPRA I 90€</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">👟 COLLEZIONE COMPLETA LV SKATE & AIR JORDAN (TAGLIE EU 36 - 46)</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">📦 PAGAMENTO ALLA CONSEGNA (CONTRASSEGNO), CARTA O PAYPAL</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">🎟️ USA IL CODICE <span class="text-rose-400 underline">STREET10</span> PER IL 10% DI SCONTO EXTRA</span>
+            <!-- Duplicato per loop continuo -->
+            <span class="mx-6">🔥 TUTTI I MODELLI A MENO DI 100€ • SPEDIZIONE GRATUITA SOPRA I 90€</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">👟 COLLEZIONE COMPLETA LV SKATE & AIR JORDAN (TAGLIE EU 36 - 46)</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">📦 PAGAMENTO ALLA CONSEGNA (CONTRASSEGNO), CARTA O PAYPAL</span>
+            <span class="mx-6 text-zinc-400">•</span>
+            <span class="mx-6">🎟️ USA IL CODICE <span class="text-rose-400 underline">STREET10</span> PER IL 10% DI SCONTO EXTRA</span>
+        </div>
+    </div>
+
+    <!-- ==================== 2. STICKY NAVBAR ==================== -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center lg:hidden">
+                    <button id="mobile-menu-btn" aria-label="Menu" class="p-2.5 -ml-2 text-brand-black hover:bg-zinc-100 rounded-xl transition">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Brand Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" onclick="resetFilters()" class="flex items-center gap-2 group">
+                        <div class="w-9 h-9 bg-brand-black text-white rounded-xl flex items-center justify-center font-display font-bold text-xl tracking-tighter group-hover:bg-brand-accent transition-colors">
+                            SK
+                        </div>
+                        <span class="font-display font-bold text-xl sm:text-2xl tracking-tight uppercase">
+                            STREET<span class="text-zinc-400">KICKS</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold tracking-wide uppercase">
+                    <button onclick="filterFromNav('Tutti')" class="hover:text-brand-accent transition py-2">Tutti i Modelli</button>
+                    <button onclick="filterFromNav('LV Skate')" class="hover:text-brand-accent transition py-2">LV Skate</button>
+                    <button onclick="filterFromNav('Air Jordan')" class="hover:text-brand-accent transition py-2">Air Jordan</button>
+                    <button onclick="filterFromNav('Jordan 4')" class="hover:text-brand-accent transition py-2">Jordan 4</button>
+                    <button onclick="filterFromNav('Sotto 85€')" class="hover:text-brand-accent transition py-2 text-brand-accent">Sotto 85€</button>
+                    <a href="#footer-contatti" class="hover:text-brand-accent transition py-2">Contatti</a>
+                </nav>
+
+                <!-- Right Actions: Search & Cart -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Search Toggle -->
+                    <button id="search-toggle-btn" aria-label="Cerca" class="p-2.5 text-brand-black hover:bg-zinc-100 rounded-xl transition">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+
+                    <!-- Orders History Quick Button (Mostra ultimo ordine se presente) -->
+                    <button id="last-order-btn" onclick="openLastOrderReceipt()" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-zinc-100 hover:bg-zinc-200 rounded-xl transition" title="Vedi ultimo ordine">
+                        <i class="fa-solid fa-receipt text-zinc-600"></i>
+                        <span>Ordine</span>
+                    </button>
+
+                    <!-- Cart Button -->
+                    <button onclick="toggleCart(true)" aria-label="Carrello" class="relative p-2.5 bg-brand-black text-white hover:bg-zinc-800 rounded-xl transition flex items-center gap-2 px-3.5">
+                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <span class="hidden sm:inline text-xs font-bold uppercase tracking-wider">Carrello</span>
+                        <span id="cart-badge" class="bg-brand-accent text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Expandable Search Bar -->
+            <div id="header-search-bar" class="hidden pb-4 transition-all">
+                <div class="relative max-w-2xl mx-auto">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+                    <input type="text" id="global-search-input" placeholder="Cerca LV Skate, Jordan 4, Black Cat, Marine, Chicago..." 
+                           class="w-full pl-11 pr-10 py-3 bg-zinc-100 border border-zinc-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-black focus:bg-white transition">
+                    <button onclick="clearSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-brand-black p-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Slide-Down Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-zinc-200 px-4 pt-3 pb-6 space-y-2 shadow-xl">
+            <button onclick="filterFromNav('Tutti'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">🔥 Tutti i Modelli (Max 100€)</button>
+            <button onclick="filterFromNav('LV Skate'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">Louis Vuitton LV Skate (Tutte le Colorazioni)</button>
+            <button onclick="filterFromNav('Air Jordan'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">Collezione Air Jordan</button>
+            <button onclick="filterFromNav('Jordan 4'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">Air Jordan 4 Retro</button>
+            <button onclick="filterFromNav('Sotto 85€'); toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm text-brand-accent hover:bg-zinc-100">🏷️ Offerte Sotto 85€</button>
+            <a href="#footer-contatti" onclick="toggleMobileMenu()" class="block w-full text-left px-3 py-2.5 rounded-xl font-semibold text-sm hover:bg-zinc-100">Contatti & Info</a>
+        </div>
+    </header>
+
+    <!-- ==================== 3. HERO SECTION ==================== -->
+    <section class="relative bg-brand-black text-white overflow-hidden">
+        <!-- Background Image con Overlay Sfumato -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1920&q=80" 
+                 onerror="this.src='https://placehold.co/1920x900/111111/ffffff?text=STREETKICKS+DROP+UNDER+100'"
+                 alt="LV Skate & Air Jordan Collection" 
+                 class="w-full h-full object-cover object-center opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/85 to-transparent"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
+            <div class="max-w-2xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-bold uppercase tracking-widest text-rose-400">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    Prezzi Shock • Tutto Sotto i 100€
+                </div>
+                
+                <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] uppercase">
+                    LV SKATE & JORDAN.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-zinc-500">TUTTE SOTTO I 100€.</span>
+                </h1>
+                
+                <p class="text-zinc-300 text-base sm:text-lg max-w-xl leading-relaxed">
+                    Scopri tutte le colorazioni iconiche di <strong>Louis Vuitton LV Skate</strong> e <strong>Air Jordan</strong> (Jordan 1, 4, 5, 11) in tutte le taglie EU dal 36 al 46. Spedizione rapida 24/48h e pagamento anche alla consegna.
+                </p>
+
+                <div class="pt-2 flex flex-wrap items-center gap-4">
+                    <button onclick="filterFromNav('LV Skate'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" 
+                            class="px-8 py-4 bg-white text-brand-black hover:bg-zinc-200 font-bold text-sm uppercase tracking-wider rounded-xl transition transform hover:-translate-y-0.5 shadow-lg flex items-center gap-2.5">
+                        <span>Collezione LV Skate</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button onclick="filterFromNav('Air Jordan'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" 
+                            class="px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition">
+                        Collezione Jordan
+                    </button>
+                </div>
+
+                <!-- Micro Stats -->
+                <div class="pt-6 grid grid-cols-3 gap-4 max-w-md border-t border-white/15">
+                    <div>
+                        <p class="font-display font-bold text-xl sm:text-2xl text-white">MAX 100€</p>
+                        <p class="text-xs text-zinc-400">Su tutto il catalogo</p>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold text-xl sm:text-2xl text-white">EU 36–46</p>
+                        <p class="text-xs text-zinc-400">Tutte le taglie pronte</p>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold text-xl sm:text-2xl text-white">24/48h</p>
+                        <p class="text-xs text-zinc-400">Consegna Espressa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. CATALOGO, FILTRI E RICERCA ==================== -->
+    <main id="catalogo" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        
+        <!-- Header Sezione Catalogo -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-accent">Tutte le Colorazioni & Taglie (36–46)</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight uppercase mt-1">
+                    LV Skate & Air Jordan Store
+                </h2>
+            </div>
+            <p id="results-count" class="text-sm text-zinc-500 font-medium">
+                Mostrando 15 prodotti
+            </p>
+        </div>
+
+        <!-- Barra Controlli: Filtri Categoria + Taglia EU + Ricerca + Ordinamento -->
+        <div class="bg-zinc-50 border border-zinc-200/80 p-3 sm:p-4 rounded-2xl mb-8 space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- Category Filter Pills -->
+                <div id="category-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+                    <button data-category="Tutti" class="filter-pill active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-brand-black text-white">
+                        Tutti
+                    </button>
+                    <button data-category="LV Skate" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        LV Skate
+                    </button>
+                    <button data-category="Air Jordan" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Air Jordan
+                    </button>
+                    <button data-category="Jordan 4" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Jordan 4
+                    </button>
+                    <button data-category="Sotto 85€" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Sotto 85€
+                    </button>
+                </div>
+
+                <!-- Size Filter, Search & Sort Controls -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                    <!-- Filtro Taglia EU -->
+                    <div class="relative">
+                        <select id="size-filter-select" aria-label="Filtra per taglia EU" class="w-full sm:w-auto appearance-none bg-white border border-zinc-200 rounded-xl pl-3.5 pr-9 py-2.5 text-sm font-semibold text-brand-black focus:outline-none focus:border-brand-black cursor-pointer">
+                            <option value="all">Taglia: Tutte (36-46)</option>
+                            <option value="36">EU 36</option>
+                            <option value="37">EU 37</option>
+                            <option value="38">EU 38</option>
+                            <option value="39">EU 39</option>
+                            <option value="40">EU 40</option>
+                            <option value="41">EU 41</option>
+                            <option value="42">EU 42</option>
+                            <option value="42.5">EU 42.5</option>
+                            <option value="43">EU 43</option>
+                            <option value="44">EU 44</option>
+                            <option value="45">EU 45</option>
+                            <option value="46">EU 46</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-500 pointer-events-none"></i>
+                    </div>
+
+                    <!-- Inline Search -->
+                    <div class="relative flex-grow sm:w-56">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                        <input type="text" id="catalog-search-input" placeholder="Cerca modello o colore..." 
+                               class="w-full pl-9 pr-3 py-2.5 bg-white border border-zinc-200 rounded-xl text-sm focus:outline-none focus:border-brand-black transition">
+                    </div>
+
+                    <!-- Sort Dropdown -->
+                    <div class="relative">
+                        <select id="sort-select" aria-label="Ordina prodotti" class="w-full sm:w-auto appearance-none bg-white border border-zinc-200 rounded-xl pl-3.5 pr-9 py-2.5 text-sm font-semibold text-brand-black focus:outline-none focus:border-brand-black cursor-pointer">
+                            <option value="featured">Ordina: In evidenza</option>
+                            <option value="price-asc">Prezzo: dal più basso</option>
+                            <option value="price-desc">Prezzo: dal più alto</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-500 pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. CATALOGO, FILTRI E RICERCA ==================== -->
+    <main id="catalogo" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        
+        <!-- Header Sezione Catalogo -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-accent">Collezione Disponibile</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight uppercase mt-1">
+                    Ultime Uscite & Best Seller
+                </h2>
+            </div>
+            <p id="results-count" class="text-sm text-zinc-500 font-medium">
+                Mostrando 12 prodotti
+            </p>
+        </div>
+
+        <!-- Barra Controlli: Filtri Categoria + Ricerca + Ordinamento -->
+        <div class="bg-zinc-50 border border-zinc-200/80 p-3 sm:p-4 rounded-2xl mb-8 space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- Category Filter Pills -->
+                <div id="category-pills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+                    <button data-category="Tutti" class="filter-pill active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-brand-black text-white">
+                        Tutti
+                    </button>
+                    <button data-category="Jordan" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Jordan
+                    </button>
+                    <button data-category="Nike" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Nike
+                    </button>
+                    <button data-category="Adidas / Yeezy" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Adidas / Yeezy
+                    </button>
+                    <button data-category="New Balance" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        New Balance
+                    </button>
+                    <button data-category="Streetwear" class="filter-pill px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wide whitespace-nowrap transition bg-white text-zinc-700 border border-zinc-200 hover:border-brand-black">
+                        Streetwear
+                    </button>
+                </div>
+
+                <!-- Search & Sort Controls -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <!-- Inline Search -->
+                    <div class="relative flex-grow sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                        <input type="text" id="catalog-search-input" placeholder="Filtra modello..." 
+                               class="w-full pl-9 pr-3 py-2.5 bg-white border border-zinc-200 rounded-xl text-sm focus:outline-none focus:border-brand-black transition">
+                    </div>
+
+                    <!-- Sort Dropdown -->
+                    <div class="relative">
+                        <select id="sort-select" aria-label="Ordina prodotti" class="w-full sm:w-auto appearance-none bg-white border border-zinc-200 rounded-xl pl-4 pr-10 py-2.5 text-sm font-semibold text-brand-black focus:outline-none focus:border-brand-black cursor-pointer">
+                            <option value="featured">Ordina: Novità & In evidenza</option>
+                            <option value="price-asc">Prezzo: crescente</option>
+                            <option value="price-desc">Prezzo: decrescente</option>
+                            <option value="discount">Offerte & Sconti</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-500 pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Griglia Prodotti -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- I prodotti vengono iniettati dinamicamente via JavaScript -->
+        </div>
+
+        <!-- Stato Nessun Risultato -->
+        <div id="empty-catalog-state" class="hidden text-center py-20 bg-zinc-50 rounded-2xl border border-zinc-200">
+            <div class="w-16 h-16 bg-zinc-200 rounded-full flex items-center justify-center mx-auto mb-4 text-zinc-500 text-2xl">
+                <i class="fa-solid fa-shoe-prints"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold uppercase">Nessun prodotto trovato</h3>
+            <p class="text-zinc-500 text-sm mt-1 mb-6">Prova a modificare i filtri o cercare un altro modello.</p>
+            <button onclick="resetFilters()" class="px-6 py-3 bg-brand-black text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-zinc-800 transition">
+                Mostra tutto il catalogo
+            </button>
+        </div>
+    </main>
+
+    <!-- ==================== 5. TRUST BADGES SECTION ==================== -->
+    <section class="bg-zinc-100 border-y border-zinc-200 py-12 sm:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200/80 flex items-start gap-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-black text-white flex items-center justify-center flex-shrink-0 text-lg">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base uppercase">Autenticità Garantita 100%</h3>
+                        <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Ogni paio viene ispezionato fisicamente dal nostro team di autenticatori prima della spedizione.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200/80 flex items-start gap-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-black text-white flex items-center justify-center flex-shrink-0 text-lg">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base uppercase">Spedizione Assicurata 24/48h</h3>
+                        <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Consegna rapida con corriere espresso tracciato. Gratis per tutti gli ordini sopra i 90€.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200/80 flex items-start gap-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-black text-white flex items-center justify-center flex-shrink-0 text-lg">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base uppercase">Reso Facile entro 14 Giorni</h3>
+                        <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Taglia errata? Puoi richiedere il cambio taglia o il rimborso completo entro 14 giorni dalla consegna.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-zinc-200/80 flex items-start gap-4 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-brand-black text-white flex items-center justify-center flex-shrink-0 text-lg">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base uppercase">Pagamenti Sicuri & Contrassegno</h3>
+                        <p class="text-xs text-zinc-500 mt-1 leading-relaxed">Paga con Carta, PayPal, Apple Pay oppure in contanti direttamente al corriere alla consegna.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. FOOTER ==================== -->
+    <footer id="footer-contatti" class="bg-brand-black text-white pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-zinc-800">
+                
+                <!-- Colonna 1: Brand & Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-white text-brand-black rounded-lg flex items-center justify-center font-display font-bold text-lg">
+                            SK
+                        </div>
+                        <span class="font-display font-bold text-xl tracking-tight uppercase">
+                            STREET<span class="text-zinc-400">KICKS</span>
+                        </span>
+                    </div>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Il punto di riferimento in Italia per sneakers in edizione limitata, deadstock e streetwear esclusivo. Passione, autenticità e cultura urban dal 2021.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#footer-contatti" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-zinc-900 hover:bg-brand-accent flex items-center justify-center transition">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#footer-contatti" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-zinc-900 hover:bg-brand-accent flex items-center justify-center transition">
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                        </a>
+                        <a href="#footer-contatti" aria-label="WhatsApp" class="w-10 h-10 rounded-xl bg-zinc-900 hover:bg-emerald-600 flex items-center justify-center transition">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Colonna 2: Categorie -->
+                <div>
+                    <h4 class="font-display font-bold text-sm uppercase tracking-wider mb-4">Collezioni (Max 100€)</h4>
+                    <ul class="space-y-2.5 text-sm text-zinc-400">
+                        <li><button onclick="filterFromNav('LV Skate'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="hover:text-white transition">Louis Vuitton LV Skate (Tutte)</button></li>
+                        <li><button onclick="filterFromNav('Air Jordan'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="hover:text-white transition">Air Jordan 1 High & Low</button></li>
+                        <li><button onclick="filterFromNav('Jordan 4'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="hover:text-white transition">Air Jordan 4 Retro</button></li>
+                        <li><button onclick="filterFromNav('Sotto 85€'); document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})" class="hover:text-white transition">Modelli Sotto 85€</button></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 3: Assistenza Clienti -->
+                <div>
+                    <h4 class="font-display font-bold text-sm uppercase tracking-wider mb-4">Assistenza & Store</h4>
+                    <ul class="space-y-2.5 text-sm text-zinc-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-zinc-500"></i> Via Torino 48, 20123 Milano (MI)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-zinc-500"></i> Lun - Sab: 10:30 - 19:30</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-zinc-500"></i> supporto@streetkicks.it</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-zinc-500"></i> +39 02 9475 8821</li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 4: Newsletter -->
+                <div>
+                    <h4 class="font-display font-bold text-sm uppercase tracking-wider mb-4">Restock & Drop Alert</h4>
+                    <p class="text-zinc-400 text-sm mb-4">
+                        Iscriviti per ricevere accesso anticipato ai drop limitati e un codice sconto immediato.
+                    </p>
+                    <form id="newsletter-form" class="space-y-2.5">
+                        <input type="email" id="newsletter-email" required placeholder="La tua email..." 
+                               class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white transition">
+                        <button type="submit" class="w-full py-3 bg-white text-brand-black hover:bg-zinc-200 font-bold text-xs uppercase tracking-wider rounded-xl transition">
+                            Iscriviti Ora
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Bottom Legal & Payment Icons -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+                <p>© 2026 STREETKICKS S.r.l. • P.IVA 12489300961 • Tutti i diritti riservati.</p>
+                <div class="flex items-center gap-3 text-lg text-zinc-400">
+                    <i class="fa-brands fa-cc-visa" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-amex" title="American Express"></i>
+                    <i class="fa-brands fa-cc-paypal" title="PayPal"></i>
+                    <i class="fa-brands fa-apple-pay text-2xl" title="Apple Pay"></i>
+                    <span class="text-[11px] font-semibold px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-300">Contrassegno</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==================== 7. PRODUCT QUICK-VIEW / DETAIL MODAL ==================== -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div onclick="closeProductModal()" class="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4 sm:p-6">
+            <div class="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-zinc-200 transform transition-all">
+                
+                <!-- Close Button -->
+                <button onclick="closeProductModal()" aria-label="Chiudi dettaglio" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 hover:bg-brand-black hover:text-white rounded-full flex items-center justify-center shadow-md transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Immagine Prodotto & Galleria -->
+                    <div class="bg-zinc-100 p-6 sm:p-8 flex flex-col justify-between relative min-h-[340px] sm:min-h-[480px]">
+                        <div id="modal-badges" class="flex flex-wrap gap-2 z-10"></div>
+                        <div class="my-auto flex flex-col items-center justify-center gap-4">
+                            <div id="modal-media-stage" class="w-full h-64 sm:h-72 flex items-center justify-center bg-white rounded-2xl p-4 border border-zinc-200/80 shadow-sm overflow-hidden">
+                                <!-- Immagine primaria o vista tecnica SVG iniettata dinamicamente -->
+                            </div>
+                            <!-- Selettore Vista (Foto Reale / Profilo Tecnico Studio) -->
+                            <div id="modal-gallery-thumbs" class="flex items-center gap-2.5">
+                                <!-- Thumbnail generate via JS -->
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-zinc-500 font-medium pt-4 border-t border-zinc-200/70">
+                            <span>SKU: <strong id="modal-sku" class="text-zinc-800">SK-001</strong></span>
+                            <span>Condizione: <strong class="text-emerald-600">Nuovo / Deadstock</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Dettagli e Selezione Taglia -->
+                    <div class="p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <span id="modal-brand" class="text-xs font-bold uppercase tracking-widest text-zinc-400">BRAND</span>
+                                <h3 id="modal-title" class="font-display text-2xl sm:text-3xl font-bold leading-tight mt-1">Nome Prodotto</h3>
+                            </div>
+
+                            <!-- Prezzo -->
+                            <div class="flex items-baseline gap-3">
+                                <span id="modal-price" class="font-display text-2xl sm:text-3xl font-bold text-brand-black">€220,00</span>
+                                <span id="modal-old-price" class="text-base text-zinc-400 line-through hidden">€260,00</span>
+                                <span id="modal-discount-tag" class="hidden px-2 py-0.5 bg-rose-100 text-brand-accent text-xs font-bold rounded-md">-15%</span>
+                            </div>
+
+                            <!-- Authenticity Pill -->
+                            <div class="p-3 bg-emerald-50 border border-emerald-200/80 rounded-xl flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check-double text-xs"></i>
+                                </div>
+                                <div class="text-xs">
+                                    <p class="font-bold text-emerald-950">100% Autentico - Verificato dal nostro team</p>
+                                    <p class="text-emerald-700">Scatola originale inclusa • Sigillo di garanzia StreetKicks</p>
+                                </div>
+                            </div>
+
+                            <!-- Descrizione -->
+                            <p id="modal-desc" class="text-sm text-zinc-600 leading-relaxed">
+                                Descrizione del prodotto.
+                            </p>
+
+                            <!-- Selettore Taglie EU -->
+                            <div>
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-800">Seleziona Taglia (EU)</span>
+                                    <span id="modal-stock-hint" class="text-xs font-semibold text-emerald-600">Disponibile</span>
+                                </div>
+                                <div id="modal-sizes-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                                    <!-- Taglie generate via JS -->
+                                </div>
+                                <p id="size-error-msg" class="hidden text-xs font-semibold text-brand-accent mt-2">
+                                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Seleziona una taglia prima di procedere.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Quantità & Bottone Aggiungi -->
+                        <div class="pt-4 border-t border-zinc-200 flex items-center gap-3">
+                            <!-- Quantity -->
+                            <div class="flex items-center border border-zinc-300 rounded-xl bg-zinc-50">
+                                <button type="button" onclick="changeModalQty(-1)" class="w-10 h-12 flex items-center justify-center text-zinc-600 hover:text-brand-black font-bold">
+                                    <i class="fa-solid fa-minus text-xs"></i>
+                                </button>
+                                <span id="modal-qty" class="w-8 text-center font-bold text-sm">1</span>
+                                <button type="button" onclick="changeModalQty(1)" class="w-10 h-12 flex items-center justify-center text-zinc-600 hover:text-brand-black font-bold">
+                                    <i class="fa-solid fa-plus text-xs"></i>
+                                </button>
+                            </div>
+
+                            <!-- Add to Cart CTA -->
+                            <button id="modal-add-btn" onclick="addCurrentProductToCart()" class="flex-grow h-12 bg-brand-black hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-2 shadow-lg">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span>Aggiungi al Carrello</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== 8. SLIDE-OVER SHOPPING CART DRAWER ==================== -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden overflow-hidden" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div onclick="toggleCart(false)" class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+                
+                <!-- Cart Header -->
+                <div class="px-6 py-5 border-b border-zinc-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <h2 class="font-display text-xl font-bold uppercase tracking-tight">Il Tuo Carrello</h2>
+                            <span id="drawer-cart-count" class="px-2.5 py-0.5 bg-zinc-100 text-zinc-800 text-xs font-bold rounded-full">0</span>
+                        </div>
+                        <button onclick="toggleCart(false)" aria-label="Chiudi carrello" class="p-2 text-zinc-400 hover:text-brand-black rounded-xl hover:bg-zinc-100 transition">
+                            <i class="fa-solid fa-xmark text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Free Shipping Progress Bar -->
+                    <div class="mt-4 bg-zinc-50 p-3 rounded-xl border border-zinc-200/80">
+                        <p id="shipping-progress-text" class="text-xs font-semibold text-zinc-700 mb-2">
+                            Aggiungi <span class="text-brand-black font-bold">€90,00</span> per ottenere la <span class="text-emerald-600 font-bold">Spedizione Gratuita!</span>
+                        </p>
+                        <div class="w-full h-2 bg-zinc-200 rounded-full overflow-hidden">
+                            <div id="shipping-progress-bar" class="h-full bg-emerald-500 transition-all duration-300 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cart-items-container" class="flex-grow overflow-y-auto px-6 py-4 space-y-4">
+                    <!-- Elementi carrello generati via JS -->
+                </div>
+
+                <!-- Empty Cart State -->
+                <div id="empty-cart-state" class="hidden flex-grow flex flex-col items-center justify-center px-6 text-center">
+                    <div class="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400 text-3xl mb-4">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <h3 class="font-display text-lg font-bold uppercase">Il carrello è vuoto</h3>
+                    <p class="text-sm text-zinc-500 mt-1 mb-6 max-w-xs">Non hai ancora aggiunto nessuna sneaker o capo streetwear al carrello.</p>
+                    <button onclick="toggleCart(false)" class="px-6 py-3 bg-brand-black text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-zinc-800 transition">
+                        Esplora il Catalogo
+                    </button>
+                </div>
+
+                <!-- Cart Footer: Promo Code, Totals & Checkout CTA -->
+                <div id="cart-footer" class="border-t border-zinc-200 bg-zinc-50 p-6 space-y-4">
+                    
+                    <!-- Codice Sconto -->
+                    <div>
+                        <div class="flex gap-2">
+                            <input type="text" id="promo-code-input" placeholder="Codice sconto (es. STREET10)" 
+                                   class="flex-grow px-3.5 py-2.5 bg-white border border-zinc-300 rounded-xl text-xs font-semibold uppercase focus:outline-none focus:border-brand-black">
+                            <button onclick="applyPromoCode()" class="px-4 py-2.5 bg-zinc-900 hover:bg-brand-black text-white text-xs font-bold uppercase tracking-wider rounded-xl transition">
+                                Applica
+                            </button>
+                        </div>
+                        <p id="promo-feedback" class="text-xs mt-1.5 hidden"></p>
+                    </div>
+
+                    <!-- Riepilogo Importi -->
+                    <div class="space-y-2 text-sm pt-2 border-t border-zinc-200/80">
+                        <div class="flex justify-between text-zinc-600">
+                            <span>Subtotale</span>
+                            <span id="cart-subtotal" class="font-semibold text-brand-black">€0,00</span>
+                        </div>
+                        <div id="cart-discount-row" class="hidden flex justify-between text-emerald-600 font-medium">
+                            <span>Sconto (<span id="applied-promo-label">STREET10</span>)</span>
+                            <span id="cart-discount-amount">-€0,00</span>
+                        </div>
+                        <div class="flex justify-between text-zinc-600">
+                            <span>Spedizione stimata</span>
+                            <span id="cart-shipping" class="font-semibold text-brand-black">€7,90</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold text-brand-black pt-2 border-t border-zinc-200">
+                            <span>Totale IVA inclusa</span>
+                            <span id="cart-total" class="font-display text-xl">€0,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Procedi al Checkout Button -->
+                    <button onclick="openCheckoutModal()" class="w-full py-4 bg-brand-black hover:bg-zinc-800 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                        <span>Procedi al Checkout</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== 9. COMPLETE CHECKOUT & ORDER CONFIRMATION MODAL ==================== -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+        <div class="flex min-h-full items-center justify-center p-3 sm:p-6">
+            <div class="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-zinc-200 my-4">
+                
+                <!-- Header Checkout -->
+                <div class="bg-brand-black text-white px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 bg-white text-brand-black rounded-lg flex items-center justify-center font-display font-bold text-sm">SK</div>
+                        <span class="font-display font-bold text-lg uppercase tracking-tight">Checkout Sicuro</span>
+                        <span class="hidden sm:inline-flex items-center gap-1 text-xs text-emerald-400 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-800 ml-2">
+                            <i class="fa-solid fa-lock text-[10px]"></i> Crittografia SSL 256-bit
+                        </span>
+                    </div>
+                    <button onclick="closeCheckoutModal()" class="p-2 text-zinc-400 hover:text-white rounded-xl transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- VIEW A: FORM DI CHECKOUT -->
+                <div id="checkout-form-view" class="grid grid-cols-1 lg:grid-cols-12">
+                    
+                    <!-- Colonna Sinistra: Dati Spedizione & Pagamento (7 col) -->
+                    <form id="checkout-form" class="lg:col-span-7 p-6 sm:p-8 space-y-6 max-h-[82vh] overflow-y-auto">
+                        
+                        <!-- Step 1: Dati di Spedizione -->
+                        <div>
+                            <h3 class="font-display text-lg font-bold uppercase flex items-center gap-2 mb-4">
+                                <span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center">1</span>
+                                Dati di Spedizione
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Nome e Cognome *</label>
+                                    <input type="text" id="chk-name" required placeholder="Mario Rossi" 
+                                           class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Email *</label>
+                                    <input type="email" id="chk-email" required placeholder="mario.rossi@email.it" 
+                                           class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Telefono Cellulare *</label>
+                                    <input type="tel" id="chk-phone" required placeholder="+39 333 1234567" 
+                                           class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Indirizzo e Numero Civico *</label>
+                                    <input type="text" id="chk-address" required placeholder="Via Roma 24" 
+                                           class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Città *</label>
+                                    <input type="text" id="chk-city" required placeholder="Milano" 
+                                           class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2.5">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">CAP *</label>
+                                        <input type="text" id="chk-zip" required maxlength="5" pattern="[0-9]{5}" placeholder="20121" 
+                                               class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm focus:outline-none focus:border-brand-black focus:bg-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-zinc-700 mb-1">Provincia *</label>
+                                        <input type="text" id="chk-prov" required maxlength="2" placeholder="MI" 
+                                               class="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-sm uppercase focus:outline-none focus:border-brand-black focus:bg-white">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Metodo di Consegna -->
+                        <div class="pt-4 border-t border-zinc-200">
+                            <h3 class="font-display text-lg font-bold uppercase flex items-center gap-2 mb-3">
+                                <span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center">2</span>
+                                Metodo di Spedizione
+                            </h3>
+
+                            <div class="space-y-2.5">
+                                <label class="flex items-center justify-between p-3.5 border-2 border-brand-black bg-zinc-50 rounded-xl cursor-pointer transition" id="ship-opt-express-label">
+                                    <div class="flex items-center gap-3">
+                                        <input type="radio" name="shippingMethod" value="express" checked onchange="updateCheckoutTotals()" class="accent-brand-black w-4 h-4">
+                                        <div>
+                                            <p class="text-sm font-bold text-brand-black">Corriere Espresso Assicurato (BRT / DHL 24-48h)</p>
+                                            <p class="text-xs text-zinc-500">Tracciamento in tempo reale e doppio box protettivo</p>
+                                        </div>
+                                    </div>
+                                    <span id="chk-express-price-label" class="text-sm font-bold">€7,90</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3.5 border border-zinc-200 hover:border-zinc-400 rounded-xl cursor-pointer transition" id="ship-opt-pickup-label">
+                                    <div class="flex items-center gap-3">
+                                        <input type="radio" name="shippingMethod" value="pickup" onchange="updateCheckoutTotals()" class="accent-brand-black w-4 h-4">
+                                        <div>
+                                            <p class="text-sm font-bold text-brand-black">Ritiro in Store (Milano - Via Torino 48)</p>
+                                            <p class="text-xs text-zinc-500">Pronto per il ritiro in 2 ore lavorative</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-sm font-bold text-emerald-600">GRATIS</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Metodo di Pagamento -->
+                        <div class="pt-4 border-t border-zinc-200">
+                            <h3 class="font-display text-lg font-bold uppercase flex items-center gap-2 mb-3">
+                                <span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center">3</span>
+                                Metodo di Pagamento
+                            </h3>
+
+                            <div class="space-y-2.5">
+                                <!-- Carta di Credito -->
+                                <div class="border border-zinc-300 rounded-xl overflow-hidden">
+                                    <label class="flex items-center justify-between p-3.5 bg-zinc-50 cursor-pointer">
+                                        <div class="flex items-center gap-3">
+                    <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+                        <button onclick="printOrderReceipt()" class="px-6 py-4 bg-zinc-100 hover:bg-zinc-200 text-brand-black font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-print"></i>
+                            <span>Stampa / Salva Ricevuta</span>
+                        </button>
+                        <button onclick="finishAndContinueShopping()" class="px-8 py-4 bg-brand-black hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-lg">
+                            Continua lo Shopping
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== 10. TOAST NOTIFICATION CONTAINER ==================== -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+
+    <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
+    <script>
+        // ==================== GENERATORE ILLUSTRAZIONI VETTORIALI SU MISURA PER OGNI MODELLO ====================
+        // Silhouette dedicate: LV Skate (chunky skate, doppi lacci, fiore Monogram), Jordan 1, Jordan 4 (gabbia mesh & ali), Jordan 5, Jordan 11 (vernice)
+        function renderSneakerStudioArtwork(modelType, palette) {
+            const p = palette;
+
+            if (modelType === 'lv-skate') {
+                return `
+                <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="bg-${p.uid}" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#f8fafc"/>
+                            <stop offset="100%" stop-color="#e2e8f0"/>
+                        </linearGradient>
+                        <filter id="sh-${p.uid}" x="-10%" y="-10%" width="120%" height="130%">
+                            <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.18"/>
+                        </filter>
+                    </defs>
+                    <rect width="600" height="420" rx="20" fill="url(#bg-${p.uid})"/>
+                    <text x="300" y="92" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="62" fill="#cbd5e1" opacity="0.55" letter-spacing="6">LV SKATE</text>
+                    <g filter="url(#sh-${p.uid})" transform="translate(28, 42)">
+                        <!-- Suola esterna bicolore con fiori Monogram -->
+                        <path d="M46,274 L498,274 Q508,280 502,298 L50,298 Q42,286 46,274 Z" fill="${p.outsole}"/>
+                        <!-- Fiore Monogram sulla suola -->
+                        <circle cx="135" cy="286" r="5" fill="#ffffff" opacity="0.9"/>
+                        <circle cx="275" cy="286" r="5" fill="#ffffff" opacity="0.9"/>
+                        <circle cx="415" cy="286" r="5" fill="#ffffff" opacity="0.9"/>
+                        <!-- Intersuola chunky LV Skate -->
+                        <path d="M44,244 L500,244 Q508,260 498,275 L46,275 Q38,260 44,244 Z" fill="${p.midsole}" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <!-- Base Tomaia in Mesh Tecnico -->
+                        <path d="M52,244 Q46,184 92,150 Q145,164 195,152 L245,105 L335,114 L402,178 Q502,188 500,244 Z" fill="${p.mesh}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Linguetta super imbottita tipica LV Skate -->
+                        <path d="M225,118 Q242,76 286,82 L322,120 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <text x="268" y="106" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="13" fill="#ffffff">LV</text>
+                        <!-- Pannello Tallone & Collar Imbottito -->
+                        <path d="M52,244 L62,162 Q105,146 142,168 L156,244 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Pannello Centrale & Fiore Monogram Grande -->
+                        <path d="M156,244 L148,176 L352,186 L364,244 Z" fill="${p.secondary}" stroke="#1e293b" stroke-width="1.8"/>
+                        <!-- Iconico Fiore LV Monogram sul lato -->
+                        <g transform="translate(245, 208)">
+                            <ellipse cx="0" cy="0" rx="22" ry="7" fill="${p.primary}"/>
+                            <ellipse cx="0" cy="0" rx="7" ry="22" fill="${p.primary}"/>
+                            <circle cx="0" cy="0" r="6" fill="${p.midsole}"/>
+                        </g>
+                        <!-- Puntale / Mudguard Suede -->
+                        <path d="M364,244 L356,186 Q486,184 500,244 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Doppi Lacci Spessi tipici LV Skate -->
+                        <g stroke="${p.laces}" stroke-width="7.5" stroke-linecap="round">
+                            <line x1="252" y1="122" x2="282" y2="112"/>
+                            <line x1="282" y1="142" x2="312" y2="132"/>
+                            <line x1="312" y1="162" x2="342" y2="152"/>
+                            <line x1="342" y1="182" x2="372" y2="172"/>
+                        </g>
+                        <g stroke="${p.primary}" stroke-width="3" stroke-linecap="round">
+                            <line x1="252" y1="122" x2="282" y2="112"/>
+                            <line x1="282" y1="142" x2="312" y2="132"/>
+                            <line x1="312" y1="162" x2="342" y2="152"/>
+                            <line x1="342" y1="182" x2="372" y2="172"/>
+                        </g>
+                    </g>
+                </svg>`;
+            }
+
+            if (modelType === 'jordan4') {
+                return `
+                <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="bg-${p.uid}" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#f8fafc"/>
+                            <stop offset="100%" stop-color="#e2e8f0"/>
+                        </linearGradient>
+                        <filter id="sh-${p.uid}" x="-10%" y="-10%" width="120%" height="130%">
+                            <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.18"/>
+                        </filter>
+                    </defs>
+                    <rect width="600" height="420" rx="20" fill="url(#bg-${p.uid})"/>
+                    <text x="300" y="92" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="60" fill="#cbd5e1" opacity="0.55" letter-spacing="5">AIR JORDAN 4</text>
+                    <g filter="url(#sh-${p.uid})" transform="translate(32, 36)">
+                        <!-- Suola Jordan 4 -->
+                        <path d="M52,292 L488,292 Q498,296 492,312 L56,312 Q46,304 52,292 Z" fill="${p.outsole}"/>
+                        <!-- Intersuola con Air Bubble visibile -->
+                        <path d="M50,258 L490,258 Q498,274 490,292 L52,292 Q44,274 50,258 Z" fill="${p.midsole}" stroke="#94a3b8" stroke-width="1.5"/>
+                        <rect x="86" y="270" width="54" height="13" rx="6" fill="#0f172a"/>
+                        <rect x="92" y="273" width="42" height="7" rx="3" fill="#38bdf8" opacity="0.75"/>
+                        <!-- Tomaia principale Jordan 4 -->
+                        <path d="M58,258 Q52,210 82,165 L125,155 L218,92 L322,98 L385,186 Q492,198 490,258 Z" fill="${p.upper}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Heel Tab iconico Jordan 4 -->
+                        <path d="M62,188 L46,126 L78,122 L92,178 Z" fill="${p.wing}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Griglia Mesh laterale tipica Jordan 4 -->
+                        <polygon points="188,185 265,165 275,215 195,222" fill="#0f172a" opacity="0.85"/>
+                        <line x1="195" y1="195" x2="268" y2="178" stroke="#94a3b8" stroke-width="1.5"/>
+                        <line x1="195" y1="208" x2="272" y2="192" stroke="#94a3b8" stroke-width="1.5"/>
+                        <line x1="215" y1="178" x2="222" y2="218" stroke="#94a3b8" stroke-width="1.5"/>
+                        <line x1="242" y1="170" x2="248" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+                        <!-- Ali di supporto laterali (Support Wings) -->
+                        <path d="M135,235 L205,132 L228,138 L168,238 Z" fill="${p.wing}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Mudguard Puntale -->
+                        <path d="M362,258 L355,196 Q482,196 490,258 Z" fill="${p.mudguard}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Lacci -->
+                        <g stroke="${p.laces}" stroke-width="6" stroke-linecap="round">
+                            <line x1="236" y1="112" x2="262" y2="104"/>
+                            <line x1="264" y1="134" x2="290" y2="126"/>
+                            <line x1="292" y1="156" x2="318" y2="148"/>
+                            <line x1="320" y1="178" x2="346" y2="170"/>
+                        </g>
+                    </g>
+                </svg>`;
+            }
+
+            if (modelType === 'jordan11') {
+                return `
+                <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="600" height="420" rx="20" fill="#f8fafc"/>
+                    <text x="300" y="92" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="60" fill="#cbd5e1" opacity="0.55" letter-spacing="5">AIR JORDAN 11</text>
+                    <g transform="translate(30, 38)">
+                        <!-- Suola traslucida / rossa -->
+                        <path d="M52,290 L490,290 Q498,296 492,310 L56,310 Q48,302 52,290 Z" fill="${p.outsole}"/>
+                        <!-- Intersuola Phylon bianca -->
+                        <path d="M50,262 L492,262 Q498,276 490,290 L52,290 Q44,276 50,262 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <!-- Tomaia Ballistic Mesh -->
+                        <path d="M62,235 Q68,155 125,138 L225,84 L322,94 L395,185 Q488,198 490,242 Z" fill="${p.upper}" stroke="#1e293b" stroke-width="2"/>
+                        <!-- Iconica Fascia in Vernice Lucida (Patent Leather Mudguard) -->
+                        <path d="M52,262 Q52,202 108,195 Q245,212 375,186 Q486,192 492,262 Z" fill="${p.patent}" stroke="#09090b" stroke-width="2"/>
+                        <!-- Riflesso lucido sulla vernice -->
+                        <path d="M95,215 Q245,228 435,208" stroke="#ffffff" stroke-width="3" opacity="0.35" stroke-linecap="round"/>
+                        <!-- Jumpman Logo sul tallone -->
+                        <circle cx="115" cy="166" r="8" fill="${p.accent}"/>
+                    </g>
+                </svg>`;
+            }
+
+            if (modelType === 'jordan5') {
+                return `
+                <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="600" height="420" rx="20" fill="#f8fafc"/>
+                    <text x="300" y="92" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="60" fill="#cbd5e1" opacity="0.55" letter-spacing="5">AIR JORDAN 5</text>
+                    <g transform="translate(30, 38)">
+                        <path d="M52,290 L490,290 Q498,296 492,310 L56,310 Q48,302 52,290 Z" fill="#38bdf8" opacity="0.8"/>
+                        <path d="M50,256 L492,256 Q498,274 490,290 L52,290 Q44,274 50,256 Z" fill="#18181b"/>
+                        <!-- Denti di squalo sull'intersuola tipici Jordan 5 -->
+                        <polygon points="315,286 335,260 355,286 375,260 395,286" fill="${p.accent}"/>
+                        <!-- Tomaia Nabuk Nero -->
+                        <path d="M58,256 Q56,175 102,145 L218,86 L325,96 L392,186 Q492,198 490,256 Z" fill="#18181b" stroke="#09090b" stroke-width="2"/>
+                        <!-- Linguetta riflettente argento -->
+                        <path d="M218,86 L252,64 L298,94 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+                        <!-- Finestra Mesh laterale -->
+                        <polygon points="195,182 268,165 275,212 198,218" fill="#e2e8f0" opacity="0.85"/>
+                    </g>
+                </svg>`;
+            }
+
+            if (modelType === 'jordan1-low') {
+                return `
+                <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="600" height="420" rx="20" fill="#f8fafc"/>
+                    <text x="300" y="95" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="60" fill="#cbd5e1" opacity="0.5" letter-spacing="5">JORDAN 1 LOW</text>
+                    <g transform="translate(30, 55)">
+                        <path d="M52,272 L492,272 Q502,275 496,288 L56,288 Q48,282 52,272 Z" fill="${p.primary}"/>
+                        <path d="M52,250 L492,250 Q498,262 492,273 L52,273 Q46,262 52,250 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <path d="M60,250 Q58,195 95,168 L178,175 L235,126 L325,134 L388,188 Q490,196 492,250 Z" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                        <path d="M60,250 L68,176 L132,182 L152,250 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <path d="M225,132 L322,136 L385,192 L352,202 L222,150 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <path d="M380,190 Q482,192 492,250 L368,250 L356,204 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                        <path d="M112,174 Q152,222 248,210 L345,180 Q245,238 134,234 Q92,230 112,174 Z" fill="${p.swoosh}" stroke="#0f172a" stroke-width="1.5"/>
+                    </g>
+                </svg>`;
+            }
+
+            // Default: Jordan 1 High
+            return `
+            <svg viewBox="0 0 600 420" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bg-${p.uid}" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#f8fafc"/>
+                        <stop offset="100%" stop-color="#e2e8f0"/>
+                    </linearGradient>
+                    <filter id="sh-${p.uid}" x="-10%" y="-10%" width="120%" height="130%">
+                        <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.18"/>
+                    </filter>
+                </defs>
+                <rect width="600" height="420" rx="20" fill="url(#bg-${p.uid})"/>
+                <text x="300" y="95" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="64" fill="#cbd5e1" opacity="0.45" letter-spacing="6">AIR JORDAN 1</text>
+                <g filter="url(#sh-${p.uid})" transform="translate(35, 35)">
+                    <path d="M55,295 L485,295 Q495,295 492,308 L484,316 L58,316 Q50,312 55,295 Z" fill="${p.outsole}"/>
+                    <path d="M54,272 L488,272 Q494,284 488,296 L55,296 Q48,284 54,272 Z" fill="${p.midsole}" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <path d="M62,272 Q55,245 88,226 L175,202 L222,120 L238,68 L345,74 L356,142 L455,212 Q495,232 486,272 Z" fill="${p.base}" stroke="#1e293b" stroke-width="2"/>
+                    <path d="M62,272 L68,185 L122,185 L145,272 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                    <path d="M222,120 L238,68 L345,74 L348,118 L242,135 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                    <path d="M236,78 L344,82 L346,105 L238,108 Z" fill="${p.collar}"/>
+                    <path d="M238,108 L348,114 L392,205 L355,212 L236,125 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                    <path d="M385,205 Q475,206 486,272 L365,272 L355,222 Z" fill="${p.primary}" stroke="#1e293b" stroke-width="2"/>
+                    <g stroke="${p.laces}" stroke-width="6" stroke-linecap="round">
+                        <line x1="252" y1="120" x2="274" y2="112"/>
+                        <line x1="274" y1="142" x2="298" y2="133"/>
+                        <line x1="298" y1="164" x2="322" y2="155"/>
+                        <line x1="322" y1="186" x2="346" y2="177"/>
+                    </g>
+                    <path d="M115,172 Q155,228 245,218 L342,188 Q242,248 135,244 Q92,240 115,172 Z" fill="${p.swoosh}" stroke="#0f172a" stroke-width="1.5"/>
+                </g>
+            </svg>`;
+        }
+
+        // Converti SVG inline in Data-URI sicuro per uso diretto come src immagine nelle card (garantisce 100% corrispondenza modello + colorazione)
+        function svgToDataUri(svgString) {
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgString.trim());
+        }
+
+        // Tutte le taglie EU dal 36 al 46 disponibili per ogni modello
+        const ALL_EU_SIZES = {
+            '36': 4, '37': 5, '38': 6, '39': 6, '40': 7,
+            '41': 8, '42': 9, '42.5': 5, '43': 7, '44': 6, '45': 4, '46': 3
+        };
+
+        // ==================== CATALOGO COMPLETO: LV SKATE (TUTTE LE COLORAZIONI) & AIR JORDAN (MAX 100€) ====================
+        const PRODUCTS = [
+            // --- COLLEZIONE LOUIS VUITTON LV SKATE (TUTTE LE COLORAZIONI) ---
+            {
+                id: 'lv-01',
+                sku: '1AARQG-BLU',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Marine / Blue & White"',
+                price: 95.00,
+                oldPrice: 149.00,
+                badge: 'BEST SELLER',
+                badgeColor: 'bg-blue-700 text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-blue', primary: '#1d4ed8', secondary: '#60a5fa', mesh: '#ffffff', midsole: '#ffffff', outsole: '#1e3a8a', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&w=900&q=85',
+                description: 'Iconica sneaker LV Skate nella celebre colorazione Marine Blue & White. Tomaia bicolore in mesh tecnico, pelle di vitello e suede blu intenso, doppi lacci imbottiti e suola in gomma con fiori Monogram.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'lv-02',
+                sku: '1AARQ1-BLK',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Noir / Black & White"',
+                price: 95.00,
+                oldPrice: 149.00,
+                badge: 'PIÙ VENDUTA',
+                badgeColor: 'bg-brand-black text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-bw', primary: '#111827', secondary: '#d1d5db', mesh: '#ffffff', midsole: '#ffffff', outsole: '#111827', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1637844558445-ed3042b46832?auto=format&fit=crop&w=900&q=85',
+                description: 'Versione Noir & White della LV Skate ispirata al mondo skate anni ’90. Contrasto deciso tra suede nero profondo, pannelli bianchi, linguetta maxi imbottita e fiori Monogram laterali.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'lv-03',
+                sku: '1AARQ5-BEI',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Beige / Cream & White"',
+                price: 92.00,
+                oldPrice: 145.00,
+                badge: 'LIMITED',
+                badgeColor: 'bg-amber-700 text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-beige', primary: '#b48a5a', secondary: '#e7d7c1', mesh: '#faf8f5', midsole: '#ffffff', outsole: '#a17445', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=900&q=85',
+                description: 'Colorazione raffinata Beige & Cream White. Suede sabbia naturale abbinato a mesh traspirante bianco panna, doppi lacci intrecciati e dettagli Monogram tono su tono.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'lv-04',
+                sku: '1AARQ8-RED',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Rouge / Red & White"',
+                price: 89.00,
+                oldPrice: 140.00,
+                badge: 'DROP 2026',
+                badgeColor: 'bg-brand-accent text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-red', primary: '#dc2626', secondary: '#fca5a5', mesh: '#ffffff', midsole: '#ffffff', outsole: '#b91c1c', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85',
+                description: 'LV Skate nella variante Rouge & White ad alto impatto visivo. Suede rosso acceso, inserti bianchi, fiore Monogram scolpito sul fianco e suola bicolore ad alta aderenza.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'lv-05',
+                sku: '1AARQ9-GRN',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Vert / Emerald Green"',
+                price: 89.00,
+                oldPrice: 140.00,
+                badge: 'ESCLUSIVA',
+                badgeColor: 'bg-emerald-600 text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-green', primary: '#15803d', secondary: '#86efac', mesh: '#ffffff', midsole: '#ffffff', outsole: '#14532d', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=900&q=85',
+                description: 'Colorazione Vert Emerald & White. Tomaia in suede verde smeraldo e mesh bianco ottico con doppi lacci thick e suola in gomma resistente decorata con fiori Monogram.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'lv-06',
+                sku: '1AARQ0-TBL',
+                brand: 'Louis Vuitton',
+                category: 'LV Skate',
+                subCategory: 'LV Skate',
+                name: 'Louis Vuitton LV Skate Sneaker "Triple Black"',
+                price: 98.00,
+                oldPrice: 150.00,
+                badge: 'TOP REQUEST',
+                badgeColor: 'bg-zinc-900 text-white',
+                studioArt: renderSneakerStudioArtwork('lv-skate', { uid: 'lv-tblack', primary: '#18181b', secondary: '#3f3f46', mesh: '#27272a', midsole: '#18181b', outsole: '#09090b', laces: '#27272a' }),
+                realPhoto: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=85',
+                description: 'Versione stealth Triple Black interamente nera. Mix di pelle martellata, suede nero e mesh tecnico con fiori Monogram tono su tono e maxi imbottitura sul collarino.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+
+            // --- COLLEZIONE AIR JORDAN (TUTTI I MODELLI & COLORAZIONI SOTTO I 100€) ---
+            {
+                id: 'aj-01',
+                sku: '555088-101',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 1',
+                name: 'Air Jordan 1 Retro High OG "Chicago" Varsity Red',
+                price: 89.00,
+                oldPrice: 139.00,
+                badge: 'ICONA',
+                badgeColor: 'bg-brand-accent text-white',
+                studioArt: renderSneakerStudioArtwork('jordan1-high', { uid: 'aj1-chi', base: '#ffffff', primary: '#dc2626', collar: '#111827', swoosh: '#111827', laces: '#111827', midsole: '#ffffff', outsole: '#dc2626' }),
+                realPhoto: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=900&q=85',
+                description: 'La leggendaria Air Jordan 1 High nella colorazione originale Chicago (Rosso Varsity, Bianco e Nero). Tomaia in pelle liscia, logo Wings sul colletto e suola in gomma rossa.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-02',
+                sku: '555088-134',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 1',
+                name: 'Air Jordan 1 Retro High OG "University Blue" (UNC)',
+                price: 89.00,
+                oldPrice: 139.00,
+                badge: 'BEST SELLER',
+                badgeColor: 'bg-sky-600 text-white',
+                studioArt: renderSneakerStudioArtwork('jordan1-high', { uid: 'aj1-unc', base: '#ffffff', primary: '#38bdf8', collar: '#111827', swoosh: '#111827', laces: '#111827', midsole: '#ffffff', outsole: '#38bdf8' }),
+                realPhoto: 'https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&w=900&q=85',
+                description: 'Air Jordan 1 High University Blue con pelle bianca martellata, inserti in nabuk azzurro UNC, Swoosh nero e suola azzurra abbinata.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-03',
+                sku: '555088-001',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 1',
+                name: 'Air Jordan 1 Retro High OG "Bred / Banned"',
+                price: 84.00,
+                oldPrice: 130.00,
+                badge: 'SOTTO 85€',
+                badgeColor: 'bg-brand-black text-white',
+                studioArt: renderSneakerStudioArtwork('jordan1-high', { uid: 'aj1-bred', base: '#111827', primary: '#dc2626', collar: '#111827', swoosh: '#dc2626', laces: '#111827', midsole: '#ffffff', outsole: '#dc2626' }),
+                realPhoto: 'https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=900&q=85',
+                description: 'Colorazione storica Bred (Nero e Rosso Varsity). Base in pelle nera con pannelli rossi su punta, tallone, Swoosh laterale e battistrada.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-04',
+                sku: 'DC0774-101',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 1',
+                name: 'Air Jordan 1 Low "Panda / Black & White"',
+                price: 75.00,
+                oldPrice: 115.00,
+                badge: 'PREZZO SHOCK',
+                badgeColor: 'bg-emerald-600 text-white',
+                studioArt: renderSneakerStudioArtwork('jordan1-low', { uid: 'aj1-low', primary: '#111827', swoosh: '#111827' }),
+                realPhoto: 'https://images.unsplash.com/photo-1637844558445-ed3042b46832?auto=format&fit=crop&w=900&q=85',
+                description: 'Taglio basso versatile nella colorazione Panda bianco e nero. Perfetta per ogni outfit quotidiano, con pelle liscia resistente e logo Wings ricamato sul tallone.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-05',
+                sku: 'DH6927-111',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 4',
+                name: 'Air Jordan 4 Retro "Military Black"',
+                price: 95.00,
+                oldPrice: 149.00,
+                badge: 'TOP JORDAN 4',
+                badgeColor: 'bg-brand-black text-white',
+                studioArt: renderSneakerStudioArtwork('jordan4', { uid: 'aj4-mil', upper: '#ffffff', wing: '#111827', mudguard: '#d1d5db', midsole: '#ffffff', outsole: '#111827', laces: '#ffffff' }),
+                realPhoto: 'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=900&q=85',
+                description: 'Uno dei modelli Jordan 4 più richiesti di sempre: tomaia in pelle bianca liscia, puntale in suede grigio neutro e dettagli neri su ali, tallone e intersuola.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-06',
+                sku: 'CU1110-010',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 4',
+                name: 'Air Jordan 4 Retro "Black Cat" Triple Black',
+                price: 99.00,
+                oldPrice: 155.00,
+                badge: 'PIÙ DESIDERATA',
+                badgeColor: 'bg-zinc-900 text-white',
+                studioArt: renderSneakerStudioArtwork('jordan4', { uid: 'aj4-bcat', upper: '#18181b', wing: '#27272a', mudguard: '#09090b', midsole: '#18181b', outsole: '#09090b', laces: '#18181b' }),
+                realPhoto: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=85',
+                description: 'La celebre Air Jordan 4 "Black Cat" completamente nera in nabuk opaco premium, gabbia laterale tono su tono, finiture lucide sull’intersuola e unità Air visibile.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-07',
+                sku: 'CT8527-400',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 4',
+                name: 'Air Jordan 4 Retro "University Blue" Suede',
+                price: 94.00,
+                oldPrice: 145.00,
+                badge: 'LIMITED',
+                badgeColor: 'bg-sky-600 text-white',
+                studioArt: renderSneakerStudioArtwork('jordan4', { uid: 'aj4-unc', upper: '#38bdf8', wing: '#1e293b', mudguard: '#0284c7', midsole: '#ffffff', outsole: '#1e293b', laces: '#38bdf8' }),
+                realPhoto: 'https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&w=900&q=85',
+                description: 'Tomaia interamente rivestita in morbido suede azzurro University Blue con dettagli cement grey e neri su ali, tallone e intersuola.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-08',
+                sku: 'DD0587-047',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 5',
+                name: 'Air Jordan 5 Retro "Aqua / Black Metallic"',
+                price: 82.00,
+                oldPrice: 129.00,
+                badge: 'SOTTO 85€',
+                badgeColor: 'bg-emerald-600 text-white',
+                studioArt: renderSneakerStudioArtwork('jordan5', { uid: 'aj5-aqua', accent: '#38bdf8' }),
+                realPhoto: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85',
+                description: 'Air Jordan 5 Retro in nabuk nero con iconici denti di squalo azzurro Aqua sull’intersuola, linguetta riflettente argentata e suola ghiaccio traslucida.',
+                sizes: { ...ALL_EU_SIZES }
+            },
+            {
+                id: 'aj-09',
+                sku: '378037-100',
+                brand: 'Air Jordan',
+                category: 'Air Jordan',
+                subCategory: 'Jordan 11',
+                name: 'Air Jordan 11 Retro "Concord" White & Black Patent',
+                price: 96.00,
+                oldPrice: 149.00,
+                badge: 'CLASSICO',
+                badgeColor: 'bg-brand-black text-white',
+                studioArt: renderSneakerStudioArtwork('jordan11', { uid: 'aj11-conc', upper: '#ffffff', patent: '#111827', outsole: '#bae6fd', accent: '#4f46e5' }),
+                realPhoto: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=900&q=85',
+                description: 'Icona assoluta con fascia in vernice nera lucida (Patent Leather), tomaia in mesh balistico bianco, intersuola in Phylon e suola traslucida.',
+                sizes: { ...ALL_EU_SIZES }
+            }
+        ];
+
+        // Associa ad ogni prodotto l'immagine principale renderizzata su misura (corrispondenza 100% modello + colorazione)
+        PRODUCTS.forEach(p => {
+            p.image = svgToDataUri(p.studioArt);
+        });
+
+        // ==================== STATO APPLICAZIONE ====================
+        let state = {
+            selectedCategory: 'Tutti',
+            selectedSizeFilter: 'all',
+            searchQuery: '',
+            sortBy: 'featured',
+            cart: [], // Array di { productId, size, qty }
+            promoCode: null, // 'STREET10' -> 10%
+            activeProduct: null,
+            activeMediaView: 'studio', // 'studio' (Render Modello Esatto) | 'photo' (Foto Dettaglio)
+            selectedModalSize: null,
+            modalQty: 1,
+            lastOrder: null
+        };
+
+        const FREE_SHIPPING_THRESHOLD = 90.00;
+        const STANDARD_SHIPPING_COST = 6.90;
+        const COD_FEE = 4.00;
+
+        // ==================== INIZIALIZZAZIONE ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            setupEventListeners();
+            renderCatalog();
+            updateCartUI();
+            
+            if (state.lastOrder) {
+                document.getElementById('last-order-btn').classList.remove('hidden');
+            }
+        });
+
+        // Caricamento stato persistente da localStorage
+        function loadFromStorage() {
+            try {
+                const savedCart = localStorage.getItem('streetkicks_cart');
+                const savedPromo = localStorage.getItem('streetkicks_promo');
+                const savedOrder = localStorage.getItem('streetkicks_last_order');
+                
+                if (savedCart) state.cart = JSON.parse(savedCart);
+                if (savedPromo) state.promoCode = savedPromo;
+                if (savedOrder) state.lastOrder = JSON.parse(savedOrder);
+            } catch (e) {
+                console.warn('Impossibile leggere localStorage:', e);
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('streetkicks_cart', JSON.stringify(state.cart));
+                if (state.promoCode) {
+                    localStorage.setItem('streetkicks_promo', state.promoCode);
+                } else {
+                    localStorage.removeItem('streetkicks_promo');
+                }
+                if (state.lastOrder) {
+                    localStorage.setItem('streetkicks_last_order', JSON.stringify(state.lastOrder));
+                }
+            } catch (e) {
+                console.warn('Impossibile salvare in localStorage:', e);
+            }
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        function setupEventListeners() {
+            // Mobile Menu
+            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+            // Header Search Toggle
+            document.getElementById('search-toggle-btn').addEventListener('click', () => {
+                const bar = document.getElementById('header-search-bar');
+                bar.classList.toggle('hidden');
+                if (!bar.classList.contains('hidden')) {
+                    document.getElementById('global-search-input').focus();
+                }
+            });
+
+            // Sync Search Inputs (Header + Catalogo)
+            const globalInput = document.getElementById('global-search-input');
+            const catalogInput = document.getElementById('catalog-search-input');
+
+            globalInput.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                catalogInput.value = e.target.value;
+                renderCatalog();
+            });
+
+            catalogInput.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                globalInput.value = e.target.value;
+                renderCatalog();
+            });
+
+            // Category Pills
+            document.querySelectorAll('.filter-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    setCategoryFilter(pill.dataset.category);
+                });
+            });
+
+            // Sort Select
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                state.sortBy = e.target.value;
+                renderCatalog();
+            });
+
+            // Size Filter Select
+            document.getElementById('size-filter-select').addEventListener('change', (e) => {
+                state.selectedSizeFilter = e.target.value;
+                renderCatalog();
+            });
+
+            // Newsletter Form
+            document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('newsletter-email');
+                if (emailInput.value.trim()) {
+                    showToast('Iscrizione confermata! Usa il codice STREET10 al checkout.', 'success');
+                    emailInput.value = '';
+                }
+            });
+
+            // Formattazione automatica numero carta e scadenza nel checkout
+            const cardNumInput = document.getElementById('card-number');
+            cardNumInput.addEventListener('input', (e) => {
+                let v = e.target.value.replace(/\D/g, '').substring(0, 16);
+                e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+            });
+
+            const cardExpInput = document.getElementById('card-expiry');
+            cardExpInput.addEventListener('input', (e) => {
+                let v = e.target.value.replace(/\D/g, '').substring(0, 4);
+                if (v.length >= 3) {
+                    v = v.substring(0, 2) + '/' + v.substring(2);
+                }
+                e.target.value = v;
+            });
+
+            // Checkout Form Submit
+            document.getElementById('checkout-form').addEventListener('submit', handleOrderSubmit);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // ==================== FORMATTAZIONE VALUTA ====================
+        function formatEUR(amount) {
+            return '€' + amount.toFixed(2).replace('.', ',');
+        }
+
+        // ==================== FILTRI E RENDER CATALOGO ====================
+        function setCategoryFilter(category) {
+            state.selectedCategory = category;
+            
+            document.querySelectorAll('.filter-pill').forEach(pill => {
+                if (pill.dataset.category === category) {
+                    pill.classList.remove('bg-white', 'text-zinc-700', 'border', 'border-zinc-200');
+                    pill.classList.add('bg-brand-black', 'text-white');
+                } else {
+                    pill.classList.add('bg-white', 'text-zinc-700', 'border', 'border-zinc-200');
+                    pill.classList.remove('bg-brand-black', 'text-white');
+                }
+            });
+
+            renderCatalog();
+        }
+
+        function filterFromNav(category) {
+            setCategoryFilter(category);
+            const catalogEl = document.getElementById('catalogo');
+            if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearSearch() {
+            state.searchQuery = '';
+            document.getElementById('global-search-input').value = '';
+            document.getElementById('catalog-search-input').value = '';
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            clearSearch();
+            setCategoryFilter('Tutti');
+            state.selectedSizeFilter = 'all';
+            document.getElementById('size-filter-select').value = 'all';
+            state.sortBy = 'featured';
+            document.getElementById('sort-select').value = 'featured';
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById('products-grid');
+            const emptyState = document.getElementById('empty-catalog-state');
+            const resultsCount = document.getElementById('results-count');
+
+            // 1. Filtra per categoria, taglia EU e ricerca
+            let filtered = PRODUCTS.filter(p => {
+                let matchCat = true;
+                if (state.selectedCategory === 'LV Skate') {
+                    matchCat = p.category === 'LV Skate';
+                } else if (state.selectedCategory === 'Air Jordan') {
+                    matchCat = p.category === 'Air Jordan';
+                } else if (state.selectedCategory === 'Jordan 4') {
+                    matchCat = p.subCategory === 'Jordan 4';
+                } else if (state.selectedCategory === 'Sotto 85€') {
+                    matchCat = p.price < 85;
+                }
+
+                const matchSize = state.selectedSizeFilter === 'all' || (p.sizes[state.selectedSizeFilter] && p.sizes[state.selectedSizeFilter] > 0);
+
+                const q = state.searchQuery.toLowerCase().trim();
+                const matchSearch = !q || 
+                    p.name.toLowerCase().includes(q) || 
+                    p.brand.toLowerCase().includes(q) || 
+                    p.category.toLowerCase().includes(q) ||
+                    p.subCategory.toLowerCase().includes(q) ||
+                    p.sku.toLowerCase().includes(q);
+                return matchCat && matchSize && matchSearch;
+            });
+
+            // 2. Ordina
+            if (state.sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (state.sortBy === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            resultsCount.textContent = `Mostrando ${filtered.length} ${filtered.length === 1 ? 'modello' : 'modelli'} • Taglie EU 36–46`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            // 3. Genera HTML Card
+            grid.innerHTML = filtered.map(product => {
+                const discountPercent = product.oldPrice 
+                    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) 
+                    : null;
+
+                return `
+                <article onclick="openProductModal('${product.id}')" 
+                         class="group bg-white rounded-2xl border border-zinc-200/90 overflow-hidden hover:border-brand-black hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between">
+                    
+                    <!-- Image Wrapper -->
+                    <div class="relative bg-zinc-100 aspect-[4/3] overflow-hidden p-3 flex items-center justify-center">
+                        <!-- Badges -->
+                        <div class="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5">
+                            ${product.badge ? `<span class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg ${product.badgeColor}">${product.badge}</span>` : ''}
+                            ${discountPercent ? `<span class="px-2 py-1 text-[10px] font-bold uppercase rounded-lg bg-rose-100 text-brand-accent">-${discountPercent}%</span>` : ''}
+                        </div>
+
+                        <!-- Quick Action Icon -->
+                        <button aria-label="Scegli taglia" class="absolute bottom-3 right-3 z-10 w-9 h-9 rounded-xl bg-white/95 text-brand-black shadow-md flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-black hover:text-white">
+                            <i class="fa-solid fa-plus text-sm"></i>
+                        </button>
+
+                        <img src="${product.image}" 
+                             alt="${product.name}" 
+                             loading="lazy"
+                             class="w-full h-full object-contain rounded-xl product-img-zoom">
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+                                <span>${product.brand}</span>
+                                <span class="text-emerald-600">EU 36–46 disp.</span>
+                            </div>
+                            <h3 class="font-display font-bold text-base text-brand-black leading-snug mt-1 group-hover:text-brand-accent transition-colors line-clamp-2">
+                                ${product.name}
+                            </h3>
+                        </div>
+
+                        <div class="pt-2 border-t border-zinc-100 flex items-center justify-between">
+                            <div class="flex items-baseline gap-2">
+                                <span class="font-display font-bold text-lg text-brand-black">${formatEUR(product.price)}</span>
+                                ${product.oldPrice ? `<span class="text-xs text-zinc-400 line-through">${formatEUR(product.oldPrice)}</span>` : ''}
+                            </div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-600 group-hover:text-brand-black underline">
+                                Scegli Taglia
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                `;
+            }).join('');
+        }
+
+        // ==================== PRODUCT DETAIL MODAL ====================
+        function openProductModal(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            state.activeProduct = product;
+            state.activeMediaView = 'studio';
+            state.selectedModalSize = state.selectedSizeFilter !== 'all' ? state.selectedSizeFilter : null;
+            state.modalQty = 1;
+
+            renderModalMedia();
+            document.getElementById('modal-sku').textContent = product.sku;
+            document.getElementById('modal-brand').textContent = `${product.brand} • ${product.subCategory}`;
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-price').textContent = formatEUR(product.price);
+            document.getElementById('modal-desc').textContent = product.description;
+            document.getElementById('modal-qty').textContent = '1';
+            document.getElementById('size-error-msg').classList.add('hidden');
+            document.getElementById('modal-stock-hint').textContent = state.selectedModalSize ? `Taglia EU ${state.selectedModalSize} selezionata` : 'Scegli una taglia (36–46)';
+            document.getElementById('modal-stock-hint').className = state.selectedModalSize ? 'text-xs font-semibold text-emerald-600' : 'text-xs font-semibold text-zinc-500';
+            } else {
+                oldPriceEl.classList.add('hidden');
+                discountTagEl.classList.add('hidden');
+            }
+
+            // Badges
+            const badgesContainer = document.getElementById('modal-badges');
+            badgesContainer.innerHTML = product.badge 
+            // Griglia Taglie (36 - 46)
+            const sizesGrid = document.getElementById('modal-sizes-grid');
+            sizesGrid.innerHTML = Object.entries(product.sizes).map(([size, stock]) => {
+                const isOutOfStock = stock <= 0;
+                const isPreselected = state.selectedModalSize === size;
+                return `
+                <button type="button" 
+                        ${isOutOfStock ? 'disabled' : `onclick="selectModalSize('${size}', ${stock})"`}
+                        data-size="${size}"
+                        class="size-btn py-2.5 px-2 rounded-xl border text-xs font-bold transition relative
+                        ${isOutOfStock 
+                            ? 'bg-zinc-100 border-zinc-200 text-zinc-300 cursor-not-allowed line-through' 
+                            : isPreselected 
+                                ? 'bg-brand-black border-brand-black text-white shadow-md'
+                                : 'bg-white border-zinc-300 text-brand-black hover:border-brand-black'}">
+                    EU ${size}
+                </button>
+                `;
+            }).join('');
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function setModalMediaView(view) {
+            state.activeMediaView = view;
+            renderModalMedia();
+        }
+
+        function renderModalMedia() {
+            const product = state.activeProduct;
+            if (!product) return;
+
+            const stage = document.getElementById('modal-media-stage');
+            const thumbs = document.getElementById('modal-gallery-thumbs');
+
+            if (state.activeMediaView === 'studio') {
+                stage.innerHTML = product.studioArt;
+            } else {
+                stage.innerHTML = `<img src="${product.realPhoto}" onerror="this.src='${product.image}'" alt="${product.name}" class="w-full h-full object-cover rounded-xl">`;
+            }
+
+            thumbs.innerHTML = `
+                <button type="button" onclick="setModalMediaView('studio')" class="px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-1.5 ${state.activeMediaView === 'studio' ? 'bg-brand-black text-white border-brand-black' : 'bg-white text-zinc-700 border-zinc-300 hover:border-brand-black'}">
+                    <i class="fa-solid fa-shoe-prints"></i> Vista Modello & Colorazione
+                </button>
+                <button type="button" onclick="setModalMediaView('photo')" class="px-3 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-1.5 ${state.activeMediaView === 'photo' ? 'bg-brand-black text-white border-brand-black' : 'bg-white text-zinc-700 border-zinc-300 hover:border-brand-black'}">
+                    <i class="fa-solid fa-camera"></i> Foto Lifestyle
+                </button>
+            `;
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function selectModalSize(size, stock) {
+            state.selectedModalSize = size;
+            document.getElementById('size-error-msg').classList.add('hidden');
+
+            // Aggiorna stile bottoni taglia
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if (btn.dataset.size === size) {
+                    btn.classList.remove('bg-white', 'border-zinc-300', 'text-brand-black');
+                    btn.classList.add('bg-brand-black', 'border-brand-black', 'text-white', 'shadow-md');
+                } else if (!btn.disabled) {
+                    btn.classList.add('bg-white', 'border-zinc-300', 'text-brand-black');
+                    btn.classList.remove('bg-brand-black', 'border-brand-black', 'text-white', 'shadow-md');
+                }
+            });
+
+            // Aggiorna indicatore disponibilità
+            const hint = document.getElementById('modal-stock-hint');
+            if (stock <= 2) {
+                hint.textContent = `🔥 Solo ${stock} ${stock === 1 ? 'pezzo rimasto' : 'pezzi rimasti'}!`;
+                hint.className = 'text-xs font-bold text-brand-accent';
+            } else {
+                hint.textContent = `✓ Disponibile (${stock} in magazzino)`;
+                hint.className = 'text-xs font-semibold text-emerald-600';
+            }
+
+            // Limita quantità massima allo stock disponibile
+            if (state.modalQty > stock) {
+                state.modalQty = stock;
+                document.getElementById('modal-qty').textContent = state.modalQty;
+            }
+        }
+
+        function changeModalQty(delta) {
+            if (!state.activeProduct) return;
+            const maxStock = state.selectedModalSize ? state.activeProduct.sizes[state.selectedModalSize] : 10;
+            const nextQty = state.modalQty + delta;
+            if (nextQty >= 1 && nextQty <= maxStock) {
+                state.modalQty = nextQty;
+                document.getElementById('modal-qty').textContent = state.modalQty;
+            }
+        }
+
+        function addCurrentProductToCart() {
+            if (!state.activeProduct) return;
+            
+            if (!state.selectedModalSize) {
+                document.getElementById('size-error-msg').classList.remove('hidden');
+                return;
+            }
+
+            const existingIndex = state.cart.findIndex(
+                item => item.productId === state.activeProduct.id && item.size === state.selectedModalSize
+            );
+
+            const maxStock = state.activeProduct.sizes[state.selectedModalSize];
+
+            if (existingIndex > -1) {
+                const newQty = Math.min(state.cart[existingIndex].qty + state.modalQty, maxStock);
+                state.cart[existingIndex].qty = newQty;
+            } else {
+                state.cart.push({
+                    productId: state.activeProduct.id,
+                    size: state.selectedModalSize,
+                    qty: state.modalQty
+                });
+            }
+
+            saveToStorage();
+            updateCartUI();
+            closeProductModal();
+            toggleCart(true);
+            showToast(`${state.activeProduct.name} aggiunto al carrello!`, 'success');
+        }
+
+        // ==================== SHOPPING CART DRAWER ====================
+        function toggleCart(open) {
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                drawer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                updateCartUI();
+            } else {
+                drawer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function calculateCartTotals() {
+            let subtotal = 0;
+            let totalItems = 0;
+
+            state.cart.forEach(item => {
+                const prod = PRODUCTS.find(p => p.id === item.productId);
+                if (prod) {
+                    subtotal += prod.price * item.qty;
+                    totalItems += item.qty;
+                }
+            });
+
+            let discount = 0;
+            if (state.promoCode === 'STREET10') {
+                discount = subtotal * 0.10;
+            }
+
+            const discountedSubtotal = Math.max(0, subtotal - discount);
+            const shipping = discountedSubtotal === 0 ? 0 : (discountedSubtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST);
+            const total = discountedSubtotal + shipping;
+
+            return { subtotal, discount, discountedSubtotal, shipping, total, totalItems };
+        }
+
+        function updateCartUI() {
+            const { subtotal, discount, discountedSubtotal, shipping, total, totalItems } = calculateCartTotals();
+
+            // Badges contatori
+            document.getElementById('cart-badge').textContent = totalItems;
+            document.getElementById('drawer-cart-count').textContent = totalItems;
+
+            // Barra progresso spedizione gratuita
+            const progressText = document.getElementById('shipping-progress-text');
+            const progressBar = document.getElementById('shipping-progress-bar');
+
+            if (discountedSubtotal >= FREE_SHIPPING_THRESHOLD) {
+                progressText.innerHTML = `🎉 Hai sbloccato la <span class="text-emerald-600 font-bold">SPEDIZIONE GRATUITA</span> in tutta Italia!`;
+                progressBar.style.width = '100%';
+            } else {
+                const remaining = FREE_SHIPPING_THRESHOLD - discountedSubtotal;
+                const pct = Math.min(100, (discountedSubtotal / FREE_SHIPPING_THRESHOLD) * 100);
+                progressText.innerHTML = `Aggiungi <span class="text-brand-black font-bold">${formatEUR(remaining)}</span> per ottenere la <span class="text-emerald-600 font-bold">Spedizione Gratuita!</span>`;
+                progressBar.style.width = `${pct}%`;
+            }
+
+            const itemsContainer = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('empty-cart-state');
+            const footer = document.getElementById('cart-footer');
+
+            if (state.cart.length === 0) {
+                itemsContainer.classList.add('hidden');
+                footer.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            itemsContainer.classList.remove('hidden');
+            footer.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            // Render articoli
+            itemsContainer.innerHTML = state.cart.map((item, idx) => {
+                const prod = PRODUCTS.find(p => p.id === item.productId);
+                if (!prod) return '';
+
+                const sizeLabel = prod.category === 'Streetwear' ? `Taglia: ${item.size}` : `Taglia: EU ${item.size}`;
+
+                return `
+                <div class="flex gap-3.5 p-3 bg-zinc-50 border border-zinc-200/80 rounded-2xl">
+                    <img src="${prod.image}" alt="${prod.name}" class="w-20 h-20 object-cover rounded-xl bg-white border border-zinc-200 flex-shrink-0">
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div class="flex justify-between items-start gap-2">
+                            <div>
+                                <p class="text-[10px] font-bold uppercase text-zinc-400">${prod.brand}</p>
+                                <h4 class="font-display font-bold text-xs sm:text-sm text-brand-black leading-snug line-clamp-1">${prod.name}</h4>
+                                <span class="inline-block mt-1 px-2 py-0.5 bg-white border border-zinc-200 rounded-md text-[11px] font-semibold text-zinc-700">${sizeLabel}</span>
+                            </div>
+                            <button onclick="removeCartItem(${idx})" aria-label="Rimuovi articolo" class="text-zinc-400 hover:text-brand-accent p-1 transition">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-200/60">
+                            <div class="flex items-center bg-white border border-zinc-200 rounded-lg">
+                                <button onclick="updateCartItemQty(${idx}, -1)" class="w-7 h-7 flex items-center justify-center text-xs font-bold text-zinc-600 hover:text-brand-black">-</button>
+                                <span class="w-6 text-center text-xs font-bold">${item.qty}</span>
+                                <button onclick="updateCartItemQty(${idx}, 1)" class="w-7 h-7 flex items-center justify-center text-xs font-bold text-zinc-600 hover:text-brand-black">+</button>
+                            </div>
+                            <span class="font-display font-bold text-sm text-brand-black">${formatEUR(prod.price * item.qty)}</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // Aggiorna totali nel footer del carrello
+            document.getElementById('cart-subtotal').textContent = formatEUR(subtotal);
+            
+            const discountRow = document.getElementById('cart-discount-row');
+            if (discount > 0) {
+                discountRow.classList.remove('hidden');
+                document.getElementById('applied-promo-label').textContent = state.promoCode;
+                document.getElementById('cart-discount-amount').textContent = `-${formatEUR(discount)}`;
+            } else {
+                discountRow.classList.add('hidden');
+            }
+
+            document.getElementById('cart-shipping').textContent = shipping === 0 ? 'GRATIS' : formatEUR(shipping);
+            document.getElementById('cart-total').textContent = formatEUR(total);
+        }
+
+        function updateCartItemQty(index, delta) {
+            const item = state.cart[index];
+            if (!item) return;
+            const prod = PRODUCTS.find(p => p.id === item.productId);
+            const maxStock = prod ? prod.sizes[item.size] : 10;
+
+            const nextQty = item.qty + delta;
+            if (nextQty <= 0) {
+                removeCartItem(index);
+            } else if (nextQty <= maxStock) {
+                item.qty = nextQty;
+                saveToStorage();
+                updateCartUI();
+            } else {
+                showToast(`Disponibilità massima raggiunta (${maxStock} pz).`, 'info');
+            }
+        }
+
+        function removeCartItem(index) {
+            state.cart.splice(index, 1);
+            saveToStorage();
+            updateCartUI();
+        }
+
+        function applyPromoCode() {
+            const input = document.getElementById('promo-code-input');
+            const feedback = document.getElementById('promo-feedback');
+            const code = input.value.trim().toUpperCase();
+
+            feedback.classList.remove('hidden');
+
+            if (code === 'STREET10') {
+                state.promoCode = 'STREET10';
+                saveToStorage();
+                updateCartUI();
+                feedback.textContent = '✓ Codice STREET10 applicato! 10% di sconto attivato.';
+                feedback.className = 'text-xs mt-1.5 font-semibold text-emerald-600';
+                showToast('Sconto 10% applicato al carrello!', 'success');
+            } else if (code === '') {
+                state.promoCode = null;
+                saveToStorage();
+                updateCartUI();
+                feedback.classList.add('hidden');
+            } else {
+                feedback.textContent = '✕ Codice non valido. Prova con STREET10.';
+                feedback.className = 'text-xs mt-1.5 font-semibold text-brand-accent';
+            }
+        }
+
+        // ==================== CHECKOUT FLOW ====================
+        function openCheckoutModal() {
+            if (state.cart.length === 0) return;
+
+            toggleCart(false);
+            
+            // Mostra form e nascondi ricevuta
+            document.getElementById('checkout-form-view').classList.remove('hidden');
+            document.getElementById('order-confirmation-view').classList.add('hidden');
+
+            renderCheckoutSummary();
+            updateCheckoutTotals();
+
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function renderCheckoutSummary() {
+            const container = document.getElementById('checkout-items-list');
+            container.innerHTML = state.cart.map(item => {
+                const prod = PRODUCTS.find(p => p.id === item.productId);
+                if (!prod) return '';
+                const sizeText = prod.category === 'Streetwear' ? item.size : `EU ${item.size}`;
+                return `
+                <div class="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-zinc-200/80">
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <img src="${prod.image}" alt="${prod.name}" class="w-12 h-12 object-cover rounded-lg bg-zinc-100">
+                            <span class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-brand-black text-white text-[10px] font-bold rounded-full flex items-center justify-center">${item.qty}</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-brand-black line-clamp-1">${prod.name}</p>
+                            <p class="text-[11px] text-zinc-500">Taglia: ${sizeText}</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-brand-black whitespace-nowrap">${formatEUR(prod.price * item.qty)}</span>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function togglePaymentFields() {
+            const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+            const cardBox = document.getElementById('card-details-box');
+            
+            if (method === 'card') {
+                cardBox.classList.remove('hidden');
+            } else {
+                cardBox.classList.add('hidden');
+            }
+            updateCheckoutTotals();
+        }
+
+        function updateCheckoutTotals() {
+            const { subtotal, discount, discountedSubtotal } = calculateCartTotals();
+            
+            const shipMethod = document.querySelector('input[name="shippingMethod"]:checked').value;
+            const payMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            // Aggiorna bordi visuali spedizione
+            const expLabel = document.getElementById('ship-opt-express-label');
+            const pickLabel = document.getElementById('ship-opt-pickup-label');
+            if (shipMethod === 'express') {
+                expLabel.className = 'flex items-center justify-between p-3.5 border-2 border-brand-black bg-zinc-50 rounded-xl cursor-pointer transition';
+                pickLabel.className = 'flex items-center justify-between p-3.5 border border-zinc-200 hover:border-zinc-400 rounded-xl cursor-pointer transition';
+            } else {
+                pickLabel.className = 'flex items-center justify-between p-3.5 border-2 border-brand-black bg-zinc-50 rounded-xl cursor-pointer transition';
+                expLabel.className = 'flex items-center justify-between p-3.5 border border-zinc-200 hover:border-zinc-400 rounded-xl cursor-pointer transition';
+            }
+
+            // Calcolo spedizione
+            const isFreeExpress = discountedSubtotal >= FREE_SHIPPING_THRESHOLD;
+            document.getElementById('chk-express-price-label').textContent = isFreeExpress ? 'GRATIS' : formatEUR(STANDARD_SHIPPING_COST);
+            document.getElementById('chk-express-price-label').className = isFreeExpress ? 'text-sm font-bold text-emerald-600' : 'text-sm font-bold';
+
+            let shippingCost = 0;
+            if (shipMethod === 'express') {
+                shippingCost = isFreeExpress ? 0 : STANDARD_SHIPPING_COST;
+            }
+
+            // Supplemento contrassegno
+            const codFee = payMethod === 'cod' ? COD_FEE : 0;
+
+            const finalTotal = discountedSubtotal + shippingCost + codFee;
+
+            // Aggiorna DOM riepilogo checkout
+            document.getElementById('chk-subtotal').textContent = formatEUR(subtotal);
+            
+            const discRow = document.getElementById('chk-discount-row');
+            if (discount > 0) {
+                discRow.classList.remove('hidden');
+                document.getElementById('chk-discount').textContent = `-${formatEUR(discount)}`;
+            } else {
+                discRow.classList.add('hidden');
+            }
+
+            document.getElementById('chk-shipping').textContent = shippingCost === 0 ? 'GRATIS' : formatEUR(shippingCost);
+            
+            const codRow = document.getElementById('chk-cod-row');
+            if (codFee > 0) {
+                codRow.classList.remove('hidden');
+            } else {
+                codRow.classList.add('hidden');
+            }
+
+            document.getElementById('chk-total').textContent = formatEUR(finalTotal);
+            document.getElementById('submit-btn-text').textContent = `Conferma e Paga Ordine • ${formatEUR(finalTotal)}`;
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+
+            const payMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            
+            // Validazione base carta se selezionata
+            if (payMethod === 'card') {
+                const cardNum = document.getElementById('card-number').value.replace(/\s/g, '');
+                const cardExp = document.getElementById('card-expiry').value.trim();
+                const cardCvv = document.getElementById('card-cvv').value.trim();
+                if (cardNum.length < 13 || cardExp.length < 4 || cardCvv.length < 3) {
+                    showToast('Inserisci i dati completi della carta di credito.', 'error');
+                    return;
+                }
+            }
+
+            // Simula elaborazione pagamento con spinner
+            const btn = document.getElementById('submit-order-btn');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Elaborazione pagamento sicuro...</span>`;
+
+            setTimeout(() => {
+                // Genera numero ordine univoco
+                const randomCode = Math.floor(10000 + Math.random() * 89999);
+                const orderNumber = `#SK-${randomCode}`;
+
+                const customerName = document.getElementById('chk-name').value.trim();
+                const customerEmail = document.getElementById('chk-email').value.trim();
+                const customerPhone = document.getElementById('chk-phone').value.trim();
+                const customerAddress = document.getElementById('chk-address').value.trim();
+                const customerCity = document.getElementById('chk-city').value.trim();
+                const customerZip = document.getElementById('chk-zip').value.trim();
+                const customerProv = document.getElementById('chk-prov').value.trim().toUpperCase();
+
+                const shipMethod = document.querySelector('input[name="shippingMethod"]:checked').value;
+                const totalText = document.getElementById('chk-total').textContent;
+
+                const paymentLabels = {
+                    'card': 'Carta di Credito / Debito',
+                    'paypal': 'PayPal Express',
+                    'cod': 'Contrassegno (Alla consegna)'
+                };
+
+                const shippingLabels = {
+                    'express': 'Corriere Espresso 24/48h',
+                    'pickup': 'Ritiro in Store (Milano)'
+                };
+
+                const purchasedItems = state.cart.map(item => {
+                    const prod = PRODUCTS.find(p => p.id === item.productId);
+                    return {
+                        name: prod ? prod.name : 'Articolo',
+                        size: item.size,
+                        qty: item.qty,
+                        totalPrice: prod ? formatEUR(prod.price * item.qty) : '€0,00'
+                    };
+                });
+
+                // Salva ricevuta ordine
+                state.lastOrder = {
+                    orderNumber,
+                    totalText,
+                    customerName,
+                    customerEmail,
+                    customerPhone,
+                    fullAddress: `${customerAddress}, ${customerZip} ${customerCity} (${customerProv})`,
+                    paymentLabel: paymentLabels[payMethod],
+                    shippingLabel: shippingLabels[shipMethod],
+                    items: purchasedItems,
+                    date: new Date().toLocaleDateString('it-IT')
+                };
+
+                // Svuota carrello e codice promo
+                state.cart = [];
+                state.promoCode = null;
+                saveToStorage();
+                updateCartUI();
+
+                // Ripristina bottone e mostra ricevuta
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+                document.getElementById('last-order-btn').classList.remove('hidden');
+
+                renderReceiptModal(state.lastOrder);
+                showToast(`Ordine ${orderNumber} confermato con successo!`, 'success');
+            }, 1400);
+        }
+
+        function renderReceiptModal(order) {
+            document.getElementById('checkout-form-view').classList.add('hidden');
+            document.getElementById('order-confirmation-view').classList.remove('hidden');
+
+            document.getElementById('conf-email').textContent = order.customerEmail;
+            document.getElementById('conf-order-number').textContent = order.orderNumber;
+            document.getElementById('conf-order-total').textContent = order.totalText;
+            document.getElementById('conf-customer-info').innerHTML = `
+                ${order.customerName}<br>
+                ${order.fullAddress}<br>
+                Tel: ${order.customerPhone}
+            `;
+            document.getElementById('conf-payment-info').innerHTML = `
+                Pagamento: <strong>${order.paymentLabel}</strong><br>
+                Consegna: <strong>${order.shippingLabel}</strong><br>
+                Data: ${order.date}
+            `;
+
+            document.getElementById('conf-items-summary').innerHTML = order.items.map(i => `
+                <div class="flex justify-between items-center py-1 border-b border-zinc-200/60 last:border-0">
+                    <span class="text-zinc-700"><strong>${i.qty}x</strong> ${i.name} (Taglia ${i.size})</span>
+                    <span class="font-bold text-brand-black">${i.totalPrice}</span>
+                </div>
+            `).join('');
+        }
+
+        function openLastOrderReceipt() {
+            if (!state.lastOrder) return;
+            renderReceiptModal(state.lastOrder);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function finishAndContinueShopping() {
+            closeCheckoutModal();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function printOrderReceipt() {
+            if (!state.lastOrder) return;
+            window.print();
+        }
+
+        // ==================== TOAST NOTIFICATIONS ====================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-brand-black text-white border-zinc-800',
+                error: 'bg-brand-accent text-white border-rose-700',
+                info: 'bg-zinc-800 text-white border-zinc-700'
+            };
+
+            const icons = {
+                success: 'fa-circle-check text-emerald-400',
+                error: 'fa-circle-exclamation text-white',
+                info: 'fa-circle-info text-sky-400'
+            };
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-2xl border shadow-2xl text-xs sm:text-sm font-semibold transform transition-all duration-300 translate-y-4 opacity-0 ${colors[type]}`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icons[type]} text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            });
+
+            // Remove after 3.5s
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
